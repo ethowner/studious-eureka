@@ -14,5 +14,25 @@
     <p>Aloqa: <a href="mailto:hello@example.com">hello@example.com</a></p>
     <p><a href="index.html">Ortga qaytish</a></p>
   </main>
-</body>
+
+    <script>
+      function openTelegramChannel() {
+        var appLink = "tg://resolve?domain=kasperskylab_uzb";
+        var webLink = "https://t.me/kasperskylab_uzb";
+        var now = Date.now();
+        var opened = false;
+        // Try to open the app
+        var iframe = document.createElement('iframe');
+        iframe.style.display = 'none';
+        iframe.src = appLink;
+        document.body.appendChild(iframe);
+        // Fallback to web after 1200ms
+        setTimeout(function() {
+          if (Date.now() - now < 2000) {
+            window.location.href = webLink;
+          }
+        }, 1200);
+      }
+    </script>
+    </body>
 </html>
