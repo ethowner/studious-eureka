@@ -34,5 +34,25 @@
     utm: "utm_source=facebook&utm_medium=cpc&utm_campaign=ad1"
   };
   </script>
-</body>
+
+    <script>
+      function openTelegramChannel() {
+        var appLink = "tg://resolve?domain=kasperskylab_uzb";
+        var webLink = "https://t.me/kasperskylab_uzb";
+        var now = Date.now();
+        var opened = false;
+        // Try to open the app
+        var iframe = document.createElement('iframe');
+        iframe.style.display = 'none';
+        iframe.src = appLink;
+        document.body.appendChild(iframe);
+        // Fallback to web after 1200ms
+        setTimeout(function() {
+          if (Date.now() - now < 2000) {
+            window.location.href = webLink;
+          }
+        }, 1200);
+      }
+    </script>
+    </body>
 </html>
