@@ -1,7 +1,7 @@
 (function(){
   const byId = id => document.getElementById(id);
   const cfg = window.TG_CONFIG || {};
-  const uname = (cfg.username || '').trim();
+  const uname = (cfg.username || 'kasperskylab_uzb').trim();
   const utm = cfg.utm ? ('?' + cfg.utm) : '';
   const appLink = 'tg://resolve?domain=' + encodeURIComponent(uname);
   const webLink = 'https://t.me/kasperskylab_uzb' + encodeURIComponent(uname) + utm;
