@@ -1,58 +1,110 @@
 <!doctype html>
 <html lang="uz">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Telegram kanalini ochish</title>
-  <meta name="description" content="Quyidagi tugmani bosing — Telegram kanalimiz ochiladi.">
-  <meta property="og:title" content="Telegram kanalini ochish">
-  <meta property="og:description" content="Ilova yoki web.telegram.org ochiladi">
-  <meta property="og:type" content="website">
-  <meta property="og:image" content="assets/img/og.jpg">
-  <meta name="theme-color" content="#0aa67a">
-  <link rel="icon" href="assets/img/favicon.png">
-  <link rel="stylesheet" href="assets/css/style.css">
-  <style>html,body{margin:0;padding:0}</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kaspersky Antivirus — Rasmiy Telegram kanali</title>
+  <meta name="description" content="Rasmiy Telegram kanali Kaspersky Antivirus. Tugmani bosing — antivirusni bepul o‘rnatish uchun kanal ochiladi." />
+  <style>
+    body { margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif; background:#0e1117; color:#e6edf3; }
+    .wrap { min-height:100svh; display:flex; align-items:center; justify-content:center; padding:24px; }
+    .card { width:100%; max-width:560px; background:#161b22; border:1px solid #30363d; border-radius:18px; padding:28px; box-shadow: 0 8px 40px rgba(0,0,0,.35); }
+    h1 { font-size:22px; line-height:1.35; margin:0 0 8px; }
+    p  { margin:0 0 18px; color:#a3b1c2; }
+    .btn { display:inline-block; width:100%; text-align:center; padding:14px 18px; font-weight:700; font-size:16px; text-decoration:none; border-radius:12px; border:1px solid #3fb950; background:#238636; color:#fff; cursor:pointer; }
+    .btn:hover { filter: brightness(1.06); }
+    .muted { font-size:13px; color:#7d8590; margin-top:12px; }
+    .links { margin-top:12px; display:flex; gap:12px; flex-wrap:wrap; }
+    .link { color:#58a6ff; text-decoration:none; font-size:14px; }
+    .link:hover { text-decoration:underline; }
+    .logo { display:flex; align-items:center; gap:10px; margin-bottom:16px; }
+    .logo-badge { width:36px; height:36px; border-radius:9px; background:#1f6feb; display:grid; place-items:center; color:#fff; font-weight:800; }
+  </style>
+  <script>
+    // ---- Telegram deep-link open (robust) ----
+    (function () {
+      var USERNAME = "kasperskylab_uzb"; // <— если когда-нибудь поменяешь юзернейм, замени тут
+      var TG_APP_LINK = "tg://resolve?domain=" + USERNAME;
+      var TG_WEB_LINK = "https://t.me/" + USERNAME;
+
+      function isFBInApp() {
+        return /(FBAN|FBAV|FB_IAB|Instagram)/i.test(navigator.userAgent);
+      }
+      function isAndroid() { return /Android/i.test(navigator.userAgent); }
+      function isChrome() { return /Chrome\/\d+/i.test(navigator.userAgent) && !/Edg|OPR|SamsungBrowser/i.test(navigator.userAgent); }
+
+      function openTelegramChannel() {
+        var timer;
+
+        function cancelFallback() { if (timer) { clearTimeout(timer); timer = null; } }
+
+        // Если вкладка ушла в фон (пользователь перешёл в приложение) — фолбэк не нужен
+        function onHiddenOnce() {
+          if (document.hidden) { cancelFallback(); document.removeEventListener("visibilitychange", onHiddenOnce); }
+        }
+        document.addEventListener("visibilitychange", onHiddenOnce);
+
+        window.addEventListener("blur", function once() { cancelFallback(); window.removeEventListener("blur", once); }, true);
+        window.addEventListener("pagehide", cancelFallback, { once: true });
+
+        try {
+          // Для Android + Chrome (вне FB/IG вебвью) лучше использовать intent:// с browser_fallback_url
+          if (isAndroid() && isChrome() && !isFBInApp()) {
+            var intent = "intent://resolve?domain=" + encodeURIComponent(USERNAME) +
+              "#Intent;scheme=tg;package=org.telegram.messenger;S.browser_fallback_url=" +
+              encodeURIComponent(TG_WEB_LINK) + ";end";
+            window.location.href = intent;
+            return; // фолбэк встроен в intent
+          }
+        } catch (e) {}
+
+        // Обычная попытка открыть приложение
+        try { window.location.href = TG_APP_LINK; } catch (e) {}
+
+        // Фолбэк на веб только если остались на странице
+        timer = setTimeout(function () {
+          try { window.location.href = TG_WEB_LINK; } catch (e) {}
+        }, 1600);
+      }
+
+      // Навешиваем обработчик на все элементы с .open-telegram, если у них нет собственного onclick
+      document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".open-telegram").forEach(function (el) {
+          if (!el.getAttribute("onclick")) {
+            el.setAttribute("onclick", "openTelegramChannel(); return false;");
+          }
+        });
+      });
+
+      // Экспортируем в глобал для inline-использования
+      window.openTelegramChannel = openTelegramChannel;
+    })();
+  </script>
 </head>
 <body>
-  <main class="wrap">
-    <h1 class="title">Kaspersky Antivirusning rasmiy Telegram kanali</h1>
-    <p class="subtitle">Tugmani bosing — antivirusni bepul o‘rnatish uchun kanal ochiladi.</p>
+  <div class="wrap">
+    <div class="card">
+      <div class="logo">
+        <div class="logo-badge">K</div>
+        <div>
+          <div style="font-weight:800">Kaspersky Antivirus</div>
+          <div style="font-size:13px; color:#7d8590;">Rasmiy Telegram kanali</div>
+        </div>
+      </div>
 
-    <button id="openBtn" class="btn-primary">Telegramga o‘tish</button>
+      <h1>O‘rnatish uchun rasmiy Telegram kanaliga o‘ting</h1>
+      <p>Tugmani bosing — antivirusni <strong>bepul</strong> o‘rnatish uchun kanal ochiladi.</p>
 
-  </main>
+      <!-- Достаточно класса .open-telegram — JS сам подвесит обработчик -->
+      <a href="#" class="btn open-telegram">Telegram kanaliga o‘tish</a>
 
-  <div class="sticky">
-    <button id="openBtn2" class="btn-primary btn-full">Kanalni ochish</button>
+      <div class="muted">Agar ilova ochilmasa, siz avtomatik ravishda veb-kanalga yo‘naltirilasiz.</div>
+
+      <div class="links">
+        <a class="link" href="privacy.html">Maxfiylik siyosati</a>
+        <a class="link" href="https://t.me/kasperskylab_uzb" rel="noopener" target="_blank">Veb orqali ko‘rish</a>
+      </div>
+    </div>
   </div>
-
-  <script src="assets/js/app.js"></script>
-  <script>
-  window.TG_CONFIG = {
-    username: "kasperskylab_uzb", // @sizning_kanalingiz ( @ belgisisiz )
-    utm: "utm_source=facebook&utm_medium=cpc&utm_campaign=ad1"
-  };
-  </script>
-
-    <script>
-      function openTelegramChannel() {
-        var appLink = "tg://resolve?domain=kasperskylab_uzb";
-        var webLink = "https://t.me/kasperskylab_uzb";
-        var now = Date.now();
-        var opened = false;
-        // Try to open the app
-        var iframe = document.createElement('iframe');
-        iframe.style.display = 'none';
-        iframe.src = appLink;
-        document.body.appendChild(iframe);
-        // Fallback to web after 1200ms
-        setTimeout(function() {
-          if (Date.now() - now < 2000) {
-            window.location.href = webLink;
-          }
-        }, 1200);
-      }
-    </script>
-    </body>
+</body>
 </html>
