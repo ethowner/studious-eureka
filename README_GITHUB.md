@@ -1,1 +1,0 @@
-GitHub Pages: fayllarni repoga yuklang, Pages-ni yoqing (main / root). index.html ichida TG_CONFIG.username ni belgilang. Avto-yo‘naltirishlar yo‘q — faqat tugma.
